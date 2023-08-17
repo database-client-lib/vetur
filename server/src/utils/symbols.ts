@@ -13,10 +13,15 @@ export function collectSymbols(languageModes: LanguageModes, doc: TextDocument):
     return symbols;
 }
 
+export function trimQuote(str: string) {
+    if (typeof str != 'string') return str;
+    return str.replace(/(^['"]|['"]$)/g, '')
+}
+
 export function findSymbol(symbols: SymbolInformation[], document: TextDocument, position: Position): SymbolInformation | null {
     const word = getWordAtPostion(document, position)
     for (const symbol of symbols) {
-        if ([6, 7].includes(symbol.kind) && symbol.name == word && symbol.location.uri == document.uri) {
+        if ([6, 7].includes(symbol.kind) && trimQuote(symbol.name) == word && symbol.location.uri == document.uri) {
             return symbol;
         }
     }
