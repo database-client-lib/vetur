@@ -58,7 +58,7 @@ export function doComplete(
       provider.collectTags((tag, label) => {
         result.items.push({
           label: tag,
-          kind: CompletionItemKind.Property,
+          kind: tag.match(/^[A-Z]/) ? CompletionItemKind.Class : CompletionItemKind.Property,
           documentation: toMarkupContent(label),
           textEdit: TextEdit.replace(range, `${tag}>$1</${tag}>`),
           sortText: priority + tag,

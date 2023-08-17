@@ -59,10 +59,6 @@ export function analyzeComponentsDefine(
       }
 
       let componentName = s.name;
-      if (tagCasing === 'kebab') {
-        componentName = kebabCase(s.name);
-      }
-
       if (i === arr.length - 1) {
         insertPos = s.valueDeclaration.getEnd();
       }
