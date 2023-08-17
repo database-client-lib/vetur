@@ -15,6 +15,7 @@ import { AutoImportSfcPlugin } from '../plugins/autoImportSfcPlugin';
 import { EnvironmentService } from '../../services/EnvironmentService';
 import { getWordAtPostion } from '../../utils/strings';
 import { SymbolInformation } from 'vscode-css-languageservice';
+import { findSymbol } from '../../utils/symbols';
 
 type DocumentRegionCache = LanguageModelCache<VueDocumentRegions>;
 
@@ -107,12 +108,8 @@ export class VueHTMLMode implements LanguageMode {
       markdownContent += `\`\`\`${htmlResult.contents.language}\n${htmlResult.contents.value}\n\`\`\`\n`;
     }
     if (!markdownContent) {
-      const word = getWordAtPostion(document, position)
-      for (const symbol of symbols) {
-        if ([6, 7].includes(symbol.kind) && symbol.name == word && symbol.location.uri == document.uri) {
-          markdownContent = `\`\`\`js\n${document.getText(symbol.location.range)}\n\`\`\`\n`;
-        }
-      }
+      const symbol = findSymbol(symbols, document, position)
+      if (symbol) markdownContent = `\`\`\`js\n${document.getText(symbol.location.range)}\n\`\`\`\n`;
     }
     return {
       contents: { kind: 'markdown', value: markdownContent },
