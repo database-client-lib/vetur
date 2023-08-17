@@ -46,7 +46,6 @@ import { EnvironmentService } from './EnvironmentService';
 import { RefTokensService } from './RefTokenService';
 import { VueInfoService } from './vueInfoService';
 import { collectSymbols, findSymbol } from '../utils/symbols';
-import { getWordAtPostion } from '../utils/strings';
 
 export interface ProjectService {
   env: EnvironmentService;

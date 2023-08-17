@@ -1,7 +1,8 @@
 import type { TextDocument } from 'vscode-languageserver-textdocument';
-import { LanguageModeRange, LanguageModes } from '../embeddedSupport/languageModes';
+import { LanguageModes } from '../embeddedSupport/languageModes';
 import { Position, SymbolInformation } from 'vscode-languageserver';
 import { getWordAtPostion } from './strings';
+import { SymbolKind } from 'vscode-languageserver-types';
 
 export function collectSymbols(languageModes: LanguageModes, doc: TextDocument): SymbolInformation[] {
     const symbols: SymbolInformation[] = []
@@ -21,7 +22,12 @@ export function trimQuote(str: string) {
 export function findSymbol(symbols: SymbolInformation[], document: TextDocument, position: Position): SymbolInformation | null {
     const word = getWordAtPostion(document, position)
     for (const symbol of symbols) {
-        if ([6, 7].includes(symbol.kind) && trimQuote(symbol.name) == word && symbol.location.uri == document.uri) {
+        if (symbol.location.uri != document.uri) continue
+        const signs = [SymbolKind.Method, SymbolKind.Property] as any, symbolName = trimQuote(symbol.name);
+        if (
+            (signs.includes(symbol.kind) && symbolName == word) ||
+            (SymbolKind.Class == symbol.kind && symbolName == '.' + word)
+        ) {
             return symbol;
         }
     }

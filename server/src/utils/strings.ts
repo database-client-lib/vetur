@@ -1,6 +1,6 @@
 import { VLSFormatConfig } from '../config';
 import { MarkupContent, MarkupKind, Position } from 'vscode-languageserver';
-import type { TextDocument, Range } from 'vscode-languageserver-textdocument';
+import type { TextDocument } from 'vscode-languageserver-textdocument';
 import { basename } from 'path';
 import { RuntimeLibrary } from '../services/dependencyService';
 import type ts from 'typescript';
@@ -22,11 +22,12 @@ export function getWordAtPostion(document: TextDocument, position: Position): st
   }
   let word = '';
 
+  const wordRule = /[\w-_]/;
   // 依次向下遍历
   let newPos = position;
   while (true) {
     const ch = charAt(newPos);
-    if (ch.match(/\w/)) word += ch;
+    if (ch.match(wordRule)) word += ch;
     else break;
     newPos = {
       line: newPos.line,
@@ -41,7 +42,7 @@ export function getWordAtPostion(document: TextDocument, position: Position): st
   };
   while (true) {
     const ch = charAt(newPos);
-    if (ch.match(/\w/)) word = ch + word;
+    if (ch.match(wordRule)) word = ch + word;
     else break;
     newPos = {
       line: newPos.line,
