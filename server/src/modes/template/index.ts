@@ -1,8 +1,8 @@
-import { FormattingOptions, Position, Range, Hover, Location, CompletionItem } from 'vscode-languageserver-types';
+import { FormattingOptions, Position, Range, Hover, Location, CompletionItem, SymbolKind } from 'vscode-languageserver-types';
 import type { TextDocument } from 'vscode-languageserver-textdocument';
 import { VueDocumentRegions } from '../../embeddedSupport/embeddedSupport';
 import { LanguageModelCache, getLanguageModelCache } from '../../embeddedSupport/languageModelCache';
-import { LanguageMode } from '../../embeddedSupport/languageModes';
+import { LanguageMode, LanguageModeRange } from '../../embeddedSupport/languageModes';
 import { VueInfoService } from '../../services/vueInfoService';
 import { DocumentContext } from '../../types';
 import { HTMLMode } from './htmlMode';
@@ -13,6 +13,8 @@ import { DependencyService, RuntimeLibrary } from '../../services/dependencyServ
 import { VCancellationToken } from '../../utils/cancellationToken';
 import { AutoImportSfcPlugin } from '../plugins/autoImportSfcPlugin';
 import { EnvironmentService } from '../../services/EnvironmentService';
+import { getWordAtPostion } from '../../utils/strings';
+import { SymbolInformation } from 'vscode-css-languageservice';
 
 type DocumentRegionCache = LanguageModelCache<VueDocumentRegions>;
 
@@ -75,7 +77,7 @@ export class VueHTMLMode implements LanguageMode {
     }
     return this.vueInterpolationMode.doResolve(document, item);
   }
-  doHover(document: TextDocument, position: Position): Hover {
+  doHover(document: TextDocument, position: Position, symbols: SymbolInformation[]): Hover {
     // Return concatenated results from both vueInterpolationMode and htmlMode.
     const interpolationHover = this.vueInterpolationMode.doHover(document, position);
     let markdownContent = '';
@@ -103,6 +105,14 @@ export class VueHTMLMode implements LanguageMode {
       markdownContent += `${htmlResult.contents.value}\n`;
     } else {
       markdownContent += `\`\`\`${htmlResult.contents.language}\n${htmlResult.contents.value}\n\`\`\`\n`;
+    }
+    if (!markdownContent) {
+      const word = getWordAtPostion(document, position)
+      for (const symbol of symbols) {
+        if ([6, 7].includes(symbol.kind) && symbol.name == word && symbol.location.uri == document.uri) {
+          markdownContent = `\`\`\`js\n${document.getText(symbol.location.range)}\n\`\`\`\n`;
+        }
+      }
     }
     return {
       contents: { kind: 'markdown', value: markdownContent },

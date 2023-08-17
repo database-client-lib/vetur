@@ -1,8 +1,56 @@
 import { VLSFormatConfig } from '../config';
-import { MarkupContent, MarkupKind } from 'vscode-languageserver';
+import { MarkupContent, MarkupKind, Position } from 'vscode-languageserver';
+import type { TextDocument, Range } from 'vscode-languageserver-textdocument';
 import { basename } from 'path';
 import { RuntimeLibrary } from '../services/dependencyService';
 import type ts from 'typescript';
+
+export function getWordAtPostion(document: TextDocument, position: Position): string {
+
+  const charAt = (pos: Position, offset = 1) => {
+    try {
+      return document.getText({
+        start: pos,
+        end: {
+          line: pos.line,
+          character: pos.character + offset
+        }
+      })
+    } catch (error) {
+      return '';
+    }
+  }
+  let word = '';
+
+  // 依次向下遍历
+  let newPos = position;
+  while (true) {
+    const ch = charAt(newPos);
+    if (ch.match(/\w/)) word += ch;
+    else break;
+    newPos = {
+      line: newPos.line,
+      character: newPos.character + 1
+    }
+  }
+
+  // 依次向上遍历
+  newPos = {
+    line: position.line,
+    character: position.character - 1
+  };
+  while (true) {
+    const ch = charAt(newPos);
+    if (ch.match(/\w/)) word = ch + word;
+    else break;
+    newPos = {
+      line: newPos.line,
+      character: newPos.character - 1
+    }
+  }
+
+  return word
+}
 
 export function getWordAtText(text: string, offset: number, wordDefinition: RegExp): { start: number; length: number } {
   let lineStart = offset;

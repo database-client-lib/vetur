@@ -64,7 +64,7 @@ export interface LanguageMode {
   doCodeActionResolve?(document: TextDocument, action: CodeAction): CodeAction;
   doComplete?(document: TextDocument, position: Position): CompletionList;
   doResolve?(document: TextDocument, item: CompletionItem): CompletionItem;
-  doHover?(document: TextDocument, position: Position): Hover;
+  doHover?(document: TextDocument, position: Position, symbols: SymbolInformation[]): Hover;
   doSignatureHelp?(document: TextDocument, position: Position): SignatureHelp | null;
   findDocumentHighlight?(document: TextDocument, position: Position): DocumentHighlight[];
   findDocumentSymbols?(document: TextDocument): SymbolInformation[];

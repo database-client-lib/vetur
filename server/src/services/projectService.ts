@@ -45,6 +45,7 @@ import { DocumentService } from './documentService';
 import { EnvironmentService } from './EnvironmentService';
 import { RefTokensService } from './RefTokenService';
 import { VueInfoService } from './vueInfoService';
+import { collectSymbols } from '../utils/symbols';
 
 export interface ProjectService {
   env: EnvironmentService;
@@ -190,7 +191,8 @@ export async function createProjectService(
       const doc = documentService.getDocument(textDocument.uri)!;
       const mode = languageModes.getModeAtPosition(doc, position);
       if (mode && mode.doHover) {
-        return mode.doHover(doc, position);
+        const symbols = collectSymbols(languageModes.getAllLanguageModeRangesInDocument(doc), doc)
+        return mode.doHover(doc, position, symbols);
       }
       return NULL_HOVER;
     },
@@ -240,14 +242,7 @@ export async function createProjectService(
     },
     async onDocumentSymbol({ textDocument }) {
       const doc = documentService.getDocument(textDocument.uri)!;
-      const symbols: SymbolInformation[] = [];
-
-      languageModes.getAllLanguageModeRangesInDocument(doc).forEach(m => {
-        if (m.mode.findDocumentSymbols) {
-          symbols.push.apply(symbols, m.mode.findDocumentSymbols(doc));
-        }
-      });
-      return symbols;
+      return collectSymbols(languageModes.getAllLanguageModeRangesInDocument(doc), doc);
     },
     async onDocumentColors({ textDocument }) {
       const doc = documentService.getDocument(textDocument.uri)!;
