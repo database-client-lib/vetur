@@ -11,9 +11,7 @@ import { ParserOptions as PrettierParserOptions } from 'prettier';
 const TEMPLATE_HEAD = '<template>';
 const TEMPLATE_TAIL = '</template>';
 
-type PrettyHtmlConfig = RuntimeLibrary['@starptech/prettyhtml'] extends (input: string, options: infer R) => any
-  ? NonNullable<R>
-  : never;
+interface PrettyHtmlConfig {}
 
 export function htmlFormat(
   dependencyService: DependencyService,
@@ -73,10 +71,11 @@ function formatWithPrettyHtml(
   const prettier = dependencyService.get('prettier', fileFsPath).module;
   const prettierrcOptions = prettier.resolveConfig.sync(fileFsPath, { useCache: false }) || null;
 
-  const prettyhtml = dependencyService.get('@starptech/prettyhtml', fileFsPath).module;
+  // const prettyhtml = dependencyService.get('@starptech/prettyhtml', fileFsPath).module;
 
-  const result = prettyhtml(input, getPrettyHtmlOptions(prettierrcOptions, vlsFormatConfig));
-  return result.contents.trim();
+  // const result = prettyhtml(input, getPrettyHtmlOptions(prettierrcOptions, vlsFormatConfig));
+  // return result.contents.trim();
+  return input;
 }
 
 function formatWithJsBeautify(input: string, vlsFormatConfig: VLSFormatConfig): string {
@@ -115,9 +114,9 @@ function getPrettyHtmlOptions(
 
   const fromPrettier: Partial<PrettyHtmlConfig> = {};
   if (prettierrcOptions) {
-    fromPrettier.useTabs = prettierrcOptions.useTabs;
-    fromPrettier.tabWidth = prettierrcOptions.tabWidth;
-    fromPrettier.printWidth = prettierrcOptions.printWidth;
+    // fromPrettier.useTabs = prettierrcOptions.useTabs;
+    // fromPrettier.tabWidth = prettierrcOptions.tabWidth;
+    // fromPrettier.printWidth = prettierrcOptions.printWidth;
   }
 
   return {

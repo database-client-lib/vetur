@@ -8,7 +8,7 @@ import { getPathDepth } from '../utils/paths';
 // dependencies
 import ts from 'typescript';
 import prettier from 'prettier';
-import prettyHTML from '@starptech/prettyhtml';
+// import prettyHTML from '@starptech/prettyhtml';
 import prettierEslint from 'prettier-eslint';
 import * as prettierTslint from 'prettier-tslint';
 import stylusSupremacy from 'stylus-supremacy';
@@ -84,7 +84,7 @@ interface Dependency<M> {
 export interface RuntimeLibrary {
   typescript: typeof ts;
   prettier: typeof prettier;
-  '@starptech/prettyhtml': typeof prettyHTML;
+  // '@starptech/prettyhtml': typeof prettyHTML;
   'prettier-eslint': typeof prettierEslint;
   'prettier-tslint': typeof prettierTslint;
   'stylus-supremacy': typeof stylusSupremacy;
@@ -101,7 +101,7 @@ export interface DependencyService {
 const bundledModules = {
   typescript: ts,
   prettier,
-  '@starptech/prettyhtml': prettyHTML,
+  // '@starptech/prettyhtml': prettyHTML,
   'prettier-eslint': prettierEslint,
   'prettier-tslint': prettierTslint,
   'stylus-supremacy': stylusSupremacy,
@@ -217,7 +217,7 @@ export const createDependencyService = async (
     loaded = {
       typescript: await loadTypeScript(),
       prettier: await loadCommonDep('prettier', bundledModules['prettier']),
-      '@starptech/prettyhtml': await loadCommonDep('@starptech/prettyhtml', bundledModules['@starptech/prettyhtml']),
+      // '@starptech/prettyhtml': await loadCommonDep('@starptech/prettyhtml', bundledModules['@starptech/prettyhtml']),
       'prettier-eslint': await loadCommonDep('prettier-eslint', bundledModules['prettier-eslint']),
       'prettier-tslint': await loadCommonDep('prettier-tslint', bundledModules['prettier-tslint']),
       'stylus-supremacy': await loadCommonDep('stylus-supremacy', bundledModules['stylus-supremacy']),
