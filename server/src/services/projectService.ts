@@ -46,7 +46,7 @@ import { EnvironmentService } from './EnvironmentService';
 import { RefTokensService } from './RefTokenService';
 import { VueInfoService } from './vueInfoService';
 import { collectSymbols, findSymbol } from '../utils/symbols';
-import { onDefinitionExt } from './projectServiceExt';
+import { onCompletionExt, onDefinitionExt } from './projectServiceExt';
 
 export interface ProjectService {
   env: EnvironmentService;
@@ -156,7 +156,9 @@ export async function createProjectService(
           return NULL_COMPLETION;
         }
 
-        return mode.doComplete(doc, position);
+        const result = mode.doComplete(doc, position);
+        result.items = onCompletionExt(result.items, languageModes, doc, position)
+        return result;
       }
 
       return NULL_COMPLETION;

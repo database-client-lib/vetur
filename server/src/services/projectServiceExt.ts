@@ -1,8 +1,36 @@
-import { Location, Position, Range } from "vscode-languageserver-types"
+import { CompletionItem, Location, Position, Range } from "vscode-languageserver-types"
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { LanguageModes } from "../embeddedSupport/languageModes"
 import { findSymbol, collectSymbols } from "../utils/symbols"
-import { getWordAtPostion } from "../utils/strings";
+import { getPreviousWords, getWordAtPostion } from "../utils/strings";
+import { CompletionItemKind } from "vscode-css-languageservice";
+
+/**
+ * 补全增强
+ */
+export function onCompletionExt(items: CompletionItem[], languageModes: LanguageModes, doc: TextDocument, position: Position) {
+    const words = getPreviousWords(doc, position);
+    if (!words.some(w => w == 'this')) return items;
+
+    const newItems = [];
+    const map: any = {};
+    // this支持方法调用
+    for (const symbol of collectSymbols(languageModes, doc)) {
+        if (!symbol.name.match(/^\w+$/) || map[symbol.name]) continue;
+        map[symbol.name] = true;
+        newItems.push({
+            sortText: '1222',
+            label: symbol.name,
+            uri: symbol.location.uri,
+            kind: CompletionItemKind.Method
+        })
+    }
+    // 补充原来的补全
+    for (const item of items) {
+        if (!map[item.label]) newItems.push(item)
+    }
+    return newItems;
+}
 
 /**
  * 跳转定义增强

@@ -5,28 +5,42 @@ import { basename } from 'path';
 import { RuntimeLibrary } from '../services/dependencyService';
 import type ts from 'typescript';
 
-export function getWordAtPostion(document: TextDocument, position: Position): string {
 
-  const charAt = (pos: Position, offset = 1) => {
-    try {
-      return document.getText({
-        start: pos,
-        end: {
-          line: pos.line,
-          character: pos.character + offset
-        }
-      })
-    } catch (error) {
-      return '';
+/**
+ * 获取当前光标前两个单词
+ */
+export function getPreviousWords(document: TextDocument, position: Position): string[] {
+  const words = [], wordRule = /[\w-_]/;
+  let word = '', newPos = { line: position.line, character: position.character - 1 };
+  // 依次向上遍历
+  for (let i = 0; i < 2; i++) {
+    while (true) {
+      const ch = charAt(document, newPos);
+      newPos = {
+        line: newPos.line,
+        character: newPos.character - 1
+      }
+      if (!ch.match(wordRule)) {
+        words.push(word);
+        word = '';
+        break;
+      } else {
+        word = ch + word
+      }
     }
   }
+  return words
+}
+
+export function getWordAtPostion(document: TextDocument, position: Position): string {
+
   let word = '';
 
   const wordRule = /[\w-_]/;
   // 依次向下遍历
   let newPos = position;
   while (true) {
-    const ch = charAt(newPos);
+    const ch = charAt(document, newPos);
     if (ch.match(wordRule)) word += ch;
     else break;
     newPos = {
@@ -41,7 +55,7 @@ export function getWordAtPostion(document: TextDocument, position: Position): st
     character: position.character - 1
   };
   while (true) {
-    const ch = charAt(newPos);
+    const ch = charAt(document, newPos);
     if (ch.match(wordRule)) word = ch + word;
     else break;
     newPos = {
@@ -51,6 +65,20 @@ export function getWordAtPostion(document: TextDocument, position: Position): st
   }
 
   return word
+}
+
+function charAt(document: TextDocument, pos: Position, offset = 1) {
+  try {
+    return document.getText({
+      start: pos,
+      end: {
+        line: pos.line,
+        character: pos.character + offset
+      }
+    })
+  } catch (error) {
+    return '';
+  }
 }
 
 export function getWordAtText(text: string, offset: number, wordDefinition: RegExp): { start: number; length: number } {
