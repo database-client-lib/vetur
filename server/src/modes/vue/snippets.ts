@@ -38,6 +38,7 @@ export class SnippetManager {
       })
       .map(s => {
         let scaffoldLabelPre = '';
+        const isTemplate = s.type == 'template';
         switch (s.type) {
           case 'file':
             scaffoldLabelPre = '<vue> with';
@@ -52,14 +53,14 @@ export class SnippetManager {
             break;
         }
 
-        const label = `${scaffoldLabelPre} ${s.name.replace('.vue', '')}`;
+        const label = isTemplate ? scaffoldLabelPre : `${scaffoldLabelPre} ${s.name.replace('.vue', '')}`;
 
         return <CompletionItem>{
           label,
           insertText: s.content,
           insertTextFormat: InsertTextFormat.Snippet,
           // Use file icon to indicate file/template/style/script/custom completions
-          kind: CompletionItemKind.File,
+          kind: isTemplate ? CompletionItemKind.Property : CompletionItemKind.File,
           documentation: computeDocumentation(s),
           detail: computeDetailsForFileIcon(s),
           sortText: computeSortTextPrefix(s) + label
