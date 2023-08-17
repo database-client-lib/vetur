@@ -52,8 +52,7 @@ export class SnippetManager {
             break;
         }
 
-        const sourceIndicator = scaffoldSnippetSources[s.source];
-        const label = `${scaffoldLabelPre} ${s.name} ${sourceIndicator}`;
+        const label = `${scaffoldLabelPre} ${s.name}`;
 
         return <CompletionItem>{
           label,
