@@ -60,9 +60,9 @@ export function doComplete(
           label: tag,
           kind: CompletionItemKind.Property,
           documentation: toMarkupContent(label),
-          textEdit: TextEdit.replace(range, tag),
+          textEdit: TextEdit.replace(range, `${tag}>$1</${tag}>`),
           sortText: priority + tag,
-          insertTextFormat: InsertTextFormat.PlainText
+          insertTextFormat: InsertTextFormat.Snippet
         });
       });
     });
