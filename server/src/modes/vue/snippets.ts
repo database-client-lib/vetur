@@ -52,7 +52,7 @@ export class SnippetManager {
             break;
         }
 
-        const label = `${scaffoldLabelPre} ${s.name}`;
+        const label = `${scaffoldLabelPre} ${s.name.replace('.vue', '')}`;
 
         return <CompletionItem>{
           label,
