@@ -121,8 +121,8 @@ export class VLS {
       Array.isArray(params.workspaceFolders) && params.capabilities.workspace?.workspaceFolders
         ? params.workspaceFolders.map(el => ({ name: el.name, fsPath: getFileFsPath(el.uri) }))
         : rootFsPath
-        ? [{ name: '', fsPath: rootFsPath }]
-        : [];
+          ? [{ name: '', fsPath: rootFsPath }]
+          : [];
 
     if (workspaceFolders.length === 0) {
       console.error('No workspace path found. Vetur initialization failed.');
@@ -365,7 +365,7 @@ export class VLS {
     workDoneProgress.begin(`Load project: ${projectConfig.rootFsPath}`, undefined);
     const nodeModulePaths = useWorkspaceDependencies
       ? this.nodeModulesMap.get(projectConfig.rootPathForConfig) ??
-        createNodeModulesPaths(projectConfig.rootPathForConfig)
+      createNodeModulesPaths(projectConfig.rootPathForConfig)
       : [];
     if (useWorkspaceDependencies) {
       this.nodeModulesMap.set(projectConfig.rootPathForConfig, nodeModulePaths);
@@ -403,6 +403,7 @@ export class VLS {
     this.lspConnection.onCompletionResolve(this.onCompletionResolve.bind(this));
 
     this.lspConnection.onDefinition(this.onDefinition.bind(this));
+    this.lspConnection.onImplementation(this.onDefinition.bind(this));
     this.lspConnection.onDocumentFormatting(this.onDocumentFormatting.bind(this));
     this.lspConnection.onDocumentHighlight(this.onDocumentHighlight.bind(this));
     this.lspConnection.onDocumentLinks(this.onDocumentLinks.bind(this));
@@ -733,6 +734,7 @@ export class VLS {
         resolveProvider: false
       },
       documentSymbolProvider: true,
+      implementationProvider: true,
       definitionProvider: true,
       referencesProvider: true,
       codeActionProvider: {
