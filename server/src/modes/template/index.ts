@@ -78,7 +78,7 @@ export class VueHTMLMode implements LanguageMode {
     }
     return this.vueInterpolationMode.doResolve(document, item);
   }
-  doHover(document: TextDocument, position: Position, symbols: SymbolInformation[]): Hover {
+  doHover(document: TextDocument, position: Position): Hover {
     // Return concatenated results from both vueInterpolationMode and htmlMode.
     const interpolationHover = this.vueInterpolationMode.doHover(document, position);
     let markdownContent = '';
@@ -106,10 +106,6 @@ export class VueHTMLMode implements LanguageMode {
       markdownContent += `${htmlResult.contents.value}\n`;
     } else {
       markdownContent += `\`\`\`${htmlResult.contents.language}\n${htmlResult.contents.value}\n\`\`\`\n`;
-    }
-    if (!markdownContent) {
-      const symbol = findSymbol(symbols, document, position)
-      if (symbol) markdownContent = `\`\`\`js\n${document.getText(symbol.location.range)}\n\`\`\`\n`;
     }
     return {
       contents: { kind: 'markdown', value: markdownContent },

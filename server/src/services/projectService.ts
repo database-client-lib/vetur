@@ -192,8 +192,17 @@ export async function createProjectService(
       const doc = documentService.getDocument(textDocument.uri)!;
       const mode = languageModes.getModeAtPosition(doc, position);
       if (mode && mode.doHover) {
-        const symbols = collectSymbols(languageModes, doc)
-        return mode.doHover(doc, position, symbols);
+        const hover = mode.doHover(doc, position);
+        let temp = hover.contents as any || {};
+        if (Array.isArray(temp)) temp = temp[0]
+        if (!temp.value || temp.value == 'never') {
+          const symbols = collectSymbols(languageModes, doc)
+          const symbol = findSymbol(symbols, doc, position)
+          if (symbol) {
+            hover.contents = { kind: 'markdown', value: `\`\`\`js\n${doc.getText(symbol.location.range)}\n\`\`\`\n` };
+          }
+        }
+        return hover;
       }
       return NULL_HOVER;
     },
