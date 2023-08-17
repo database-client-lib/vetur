@@ -46,6 +46,7 @@ import { EnvironmentService } from './EnvironmentService';
 import { RefTokensService } from './RefTokenService';
 import { VueInfoService } from './vueInfoService';
 import { collectSymbols, findSymbol } from '../utils/symbols';
+import { onDefinitionExt } from './projectServiceExt';
 
 export interface ProjectService {
   env: EnvironmentService;
@@ -218,10 +219,7 @@ export async function createProjectService(
       const mode = languageModes.getModeAtPosition(doc, position);
       if (mode && mode.findDefinition) {
         let defs = mode.findDefinition(doc, position) as Location[];
-        if (defs.length == 0) {
-          const symbol = findSymbol(collectSymbols(languageModes, doc), doc, position)
-          if (symbol) return [symbol.location]
-        }
+        onDefinitionExt(defs, languageModes, doc, position)
         return defs;
       }
       return [];
