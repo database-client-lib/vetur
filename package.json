@@ -118,15 +118,6 @@
           "vue-postcss"
         ],
         "configuration": "./languages/vue-postcss-language-configuration.json"
-      },
-      {
-        "id": "vue-sugarss",
-        "aliases": [
-          "Vue-SugarSS",
-          "Vue-SUGARSS",
-          "vue-sugarss"
-        ],
-        "configuration": "./languages/vue-sugarss-language-configuration.json"
       }
     ],
     "grammars": [
@@ -145,7 +136,6 @@
           "source.css.scss": "scss",
           "source.css.less": "less",
           "source.css.postcss": "vue-postcss",
-          "source.css.sugarss": "vue-sugarss",
           "source.sass": "sass",
           "source.stylus": "stylus",
           "source.js": "javascript",
@@ -162,11 +152,6 @@
         "language": "vue-postcss",
         "scopeName": "source.css.postcss",
         "path": "./syntaxes/vue-postcss.json"
-      },
-      {
-        "language": "vue-sugarss",
-        "scopeName": "source.css.sugarss",
-        "path": "./syntaxes/vue-sugarss.json"
       },
       {
         "language": "vue-html",
