@@ -10,25 +10,14 @@ import elementTags from 'element-helper-json/element-tags.json';
 import elementAttributes from 'element-helper-json/element-attributes.json';
 
 // @ts-ignore
-import onsenTags from 'vue-onsenui-helper-json/vue-onsenui-tags.json';
-// @ts-ignore
-import onsenAttributes from 'vue-onsenui-helper-json/vue-onsenui-attributes.json';
-
-// @ts-ignore
 import bootstrapTags from 'bootstrap-vue-helper-json/tags.json';
 // @ts-ignore
 import bootstrapAttributes from 'bootstrap-vue-helper-json/attributes.json';
 
-// @ts-ignore
-import gridsomeTags from 'gridsome-helper-json/gridsome-tags.json';
-// @ts-ignore
-import gridsomeAttributes from 'gridsome-helper-json/gridsome-attributes.json';
 import { findConfigFile } from '../../../utils/workspace';
 
 export const elementTagProvider = getExternalTagProvider('element', elementTags, elementAttributes);
-export const onsenTagProvider = getExternalTagProvider('onsen', onsenTags, onsenAttributes);
 export const bootstrapTagProvider = getExternalTagProvider('bootstrap', bootstrapTags, bootstrapAttributes);
-export const gridsomeTagProvider = getExternalTagProvider('gridsome', gridsomeTags, gridsomeAttributes);
 
 /**
  * Get tag providers specified in workspace root's packaage.json

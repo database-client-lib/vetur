@@ -225,9 +225,7 @@ export {
   getDependencyTagProvider,
   getExternalTagProvider,
   elementTagProvider,
-  onsenTagProvider,
   bootstrapTagProvider,
-  gridsomeTagProvider
 } from './modes/template/tagProviders/externalTagProviders';
 export { isVoidElement, getHTML5TagProvider, VOID_ELEMENTS, HTML_TAGS } from './modes/template/tagProviders/htmlTags';
 export type { CompletionConfiguration } from './modes/template/tagProviders/index';

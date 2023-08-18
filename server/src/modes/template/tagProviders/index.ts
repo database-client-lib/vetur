@@ -4,9 +4,7 @@ import { getVueTagProvider } from './vueTags';
 import { getRouterTagProvider } from './routerTags';
 import {
   elementTagProvider,
-  onsenTagProvider,
   bootstrapTagProvider,
-  gridsomeTagProvider,
   getDependencyTagProvider,
   getWorkspaceTagProvider
 } from './externalTagProviders';
@@ -21,9 +19,7 @@ export let allTagProviders: IHTMLTagProvider[] = [
   getVueTagProvider(),
   getRouterTagProvider(),
   elementTagProvider,
-  onsenTagProvider,
   bootstrapTagProvider,
-  gridsomeTagProvider
 ];
 
 export interface CompletionConfiguration {
@@ -62,9 +58,6 @@ export function getTagProviderSettings(packagePath: string | undefined) {
     }
     if (dependencies['element-ui'] || devDependencies['element-ui']) {
       settings['element'] = true;
-    }
-    if (dependencies['vue-onsenui'] || devDependencies['vue-onsenui']) {
-      settings['onsen'] = true;
     }
     if (dependencies['bootstrap-vue'] || devDependencies['bootstrap-vue']) {
       settings['bootstrap'] = true;

@@ -4,14 +4,12 @@
  *--------------------------------------------------------------------------------------------*/
 
 import {
-  CSSDataV1,
   IPropertyData,
   IAtDirectiveData,
   IPseudoClassData,
   IPseudoElementData
 } from 'vscode-css-languageservice';
 // @ts-ignore
-import CssData from 'vscode-web-custom-data/data/browsers.css-data.json';
 
 export interface LoadedCSSData {
   properties: IPropertyData[];
@@ -20,11 +18,9 @@ export interface LoadedCSSData {
   pseudoElements: IPseudoElementData[];
 }
 
-const rawData = CssData as CSSDataV1;
-
 export const cssData: LoadedCSSData = {
-  properties: rawData.properties || [],
-  atDirectives: rawData.atDirectives || [],
-  pseudoClasses: rawData.pseudoClasses || [],
-  pseudoElements: rawData.pseudoElements || []
+  properties: [],
+  atDirectives: [],
+  pseudoClasses: [],
+  pseudoElements: []
 };
