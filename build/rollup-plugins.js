@@ -96,14 +96,6 @@ function bundleVlsWithEsbuild() {
        */
       'eslint',
       /**
-       * prettier-eslint and prettier-tslint need it.
-       */
-      'prettier',
-      /**
-       * prettier-tslint need it.
-       */
-      'tslint',
-      /**
        * tslint need it.
        */
       'typescript'

@@ -160,7 +160,7 @@ export {
 } from './services/typescriptService/util';
 export { getVueSys } from './services/typescriptService/vueSys';
 export { walkExpression } from './services/typescriptService/walkExpression';
-export { prettierify, prettierEslintify, prettierTslintify, prettierPluginPugify } from './utils/prettier/index';
+export { prettierify, prettierPluginPugify } from './utils/prettier/index';
 export { SassLanguageMode } from './modes/style/sass/sassLanguageMode';
 export { default as builtIn } from './modes/style/stylus/built-in';
 export {

@@ -227,7 +227,7 @@
         "vetur.useWorkspaceDependencies": {
           "type": "boolean",
           "default": false,
-          "description": "Use dependencies from workspace. Support for TypeScript, Prettier, @starptech/prettyhtml, prettier-eslint, prettier-tslint, stylus-supremacy, @prettier/plugin-pug.",
+          "description": "Use dependencies from workspace. Support for TypeScript, Prettier, @starptech/prettyhtml, stylus-supremacy, @prettier/plugin-pug.",
           "scope": "application"
         },
         "vetur.completion.autoImport": {
@@ -436,13 +436,11 @@
           "enum": [
             "none",
             "prettier",
-            "prettier-eslint",
             "vscode-typescript"
           ],
           "enumDescriptions": [
             "disable formatting",
             "js formatter from prettier",
-            "prettier-eslint",
             "js formatter from TypeScript"
           ],
           "description": "Default formatter for <script> region"
@@ -453,7 +451,6 @@
           "enum": [
             "none",
             "prettier",
-            "prettier-tslint",
             "vscode-typescript"
           ],
           "enumDescriptions": [
@@ -468,7 +465,7 @@
           "properties": {
             "prettier": {
               "type": "object",
-              "description": "Global prettier config used by prettier formatter. Used by `prettier` and `prettier-eslint`.\n\nVetur will prefer a prettier config file at home directory if one exists.",
+              "description": "Global prettier config used by prettier formatter. Used by `prettier`.\n\nVetur will prefer a prettier config file at home directory if one exists.",
               "properties": {}
             },
             "prettyhtml": {

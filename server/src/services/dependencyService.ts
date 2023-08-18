@@ -9,8 +9,6 @@ import { getPathDepth } from '../utils/paths';
 import ts from 'typescript';
 import prettier from 'prettier';
 // import prettyHTML from '@starptech/prettyhtml';
-import prettierEslint from 'prettier-eslint';
-import * as prettierTslint from 'prettier-tslint';
 import stylusSupremacy from 'stylus-supremacy';
 import * as prettierPluginPug from '@prettier/plugin-pug';
 
@@ -85,8 +83,6 @@ export interface RuntimeLibrary {
   typescript: typeof ts;
   prettier: typeof prettier;
   // '@starptech/prettyhtml': typeof prettyHTML;
-  'prettier-eslint': typeof prettierEslint;
-  'prettier-tslint': typeof prettierTslint;
   'stylus-supremacy': typeof stylusSupremacy;
   '@prettier/plugin-pug': typeof prettierPluginPug;
 }
@@ -102,8 +98,6 @@ const bundledModules = {
   typescript: ts,
   prettier,
   // '@starptech/prettyhtml': prettyHTML,
-  'prettier-eslint': prettierEslint,
-  'prettier-tslint': prettierTslint,
   'stylus-supremacy': stylusSupremacy,
   '@prettier/plugin-pug': prettierPluginPug
 };
@@ -218,8 +212,6 @@ export const createDependencyService = async (
       typescript: await loadTypeScript(),
       prettier: await loadCommonDep('prettier', bundledModules['prettier']),
       // '@starptech/prettyhtml': await loadCommonDep('@starptech/prettyhtml', bundledModules['@starptech/prettyhtml']),
-      'prettier-eslint': await loadCommonDep('prettier-eslint', bundledModules['prettier-eslint']),
-      'prettier-tslint': await loadCommonDep('prettier-tslint', bundledModules['prettier-tslint']),
       'stylus-supremacy': await loadCommonDep('stylus-supremacy', bundledModules['stylus-supremacy']),
       '@prettier/plugin-pug': await loadCommonDep('@prettier/plugin-pug', bundledModules['@prettier/plugin-pug'])
     };

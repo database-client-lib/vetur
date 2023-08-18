@@ -32,7 +32,7 @@ import {
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { LanguageMode } from '../../embeddedSupport/languageModes';
 import { VueDocumentRegions, LanguageRange, LanguageId } from '../../embeddedSupport/embeddedSupport';
-import { prettierify, prettierEslintify, prettierTslintify } from '../../utils/prettier';
+import { prettierify } from '../../utils/prettier';
 import { getFileFsPath, getFilePath } from '../../utils/paths';
 
 import { URI } from 'vscode-uri';
@@ -611,9 +611,9 @@ export async function getJavascriptMode(
         // https://github.com/vuejs/vetur/issues/2303
         const endLine =
           range.end.character > 0 &&
-          ['}', ']'].includes(
-            scriptDoc.getText(Range.create(Position.create(range.end.line, range.end.character - 1), range.end))
-          )
+            ['}', ']'].includes(
+              scriptDoc.getText(Range.create(Position.create(range.end.line, range.end.character - 1), range.end))
+            )
             ? Math.max(range.end.line - 1, range.start.line)
             : range.end.line;
 
@@ -730,20 +730,10 @@ export async function getJavascriptMode(
       const vlsFormatConfig: VLSFormatConfig = env.getConfig().vetur.format;
 
       if (
-        defaultFormatter === 'prettier' ||
-        defaultFormatter === 'prettier-eslint' ||
-        defaultFormatter === 'prettier-tslint'
-      ) {
+        defaultFormatter === 'prettier') {
         const code = doc.getText(range);
         const filePath = getFileFsPath(scriptDoc.uri);
-        let doFormat;
-        if (defaultFormatter === 'prettier-eslint') {
-          doFormat = prettierEslintify;
-        } else if (defaultFormatter === 'prettier-tslint') {
-          doFormat = prettierTslintify;
-        } else {
-          doFormat = prettierify;
-        }
+        let doFormat = prettierify;
         return doFormat(
           dependencyService,
           code,
@@ -854,9 +844,9 @@ export async function getJavascriptMode(
       const textSpan = range
         ? convertTextSpan(range, scriptDoc)
         : {
-            start: 0,
-            length: scriptText.length
-          };
+          start: 0,
+          length: scriptText.length
+        };
       const { spans } = service.getEncodedSemanticClassifications(
         fileFsPath,
         textSpan,
