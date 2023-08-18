@@ -67,6 +67,12 @@ function getStyleMode(
   const embeddedDocuments = getLanguageModelCache(10, 60, document =>
     documentRegions.refreshAndGet(document).getSingleLanguageDocument(languageId)
   );
+  languageService.setDataProviders(true, [{
+    provideProperties: () => [],
+    provideAtDirectives: () => [{ name: "@apply", description: 'The @apply directive in Tailwind CSS allows you to apply multiple utility classes to a single CSS class. This can help to reduce the amount of CSS code and make your styles more readable.' }],
+    providePseudoClasses: () => [],
+    providePseudoElements: () => [],
+  }])
   const stylesheets = getLanguageModelCache(10, 60, document => languageService.parseStylesheet(document));
 
   let latestConfig = env.getConfig().css;
@@ -98,11 +104,11 @@ function getStyleMode(
       const lsCompletions = languageService.doComplete(embedded, position, stylesheets.refreshAndGet(embedded));
       const lsItems = lsCompletions
         ? _.map(lsCompletions.items, i => {
-            return {
-              ...i,
-              sortText: StylePriority.Platform + i.label
-            } as CompletionItem;
-          })
+          return {
+            ...i,
+            sortText: StylePriority.Platform + i.label
+          } as CompletionItem;
+        })
         : [];
 
       const emmetCompletions = emmet.doComplete(document, position, emmetSyntax, env.getConfig().emmet);
