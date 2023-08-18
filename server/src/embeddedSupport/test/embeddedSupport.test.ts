@@ -150,7 +150,6 @@ suite('Template region positions', () => {
     assert.equal(
       htmlSrc.slice(regions[0].start, regions[0].end),
       [
-        // prettier-ignore
         '',
         '  <p>Test</p>',
         ''
@@ -175,7 +174,6 @@ suite('Embedded <template> ', () => {
     assert.equal(
       htmlSrc.slice(regions[0].start, regions[0].end),
       [
-        // prettier-ignore
         '',
         '  <template>',
         '    <p>Test</p>',

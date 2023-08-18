@@ -2,12 +2,13 @@
   <h1 align="center">Vetur Plus</h1>
 </p>
 
-The project is forked from vetur, all in order to provide a better development experience for vue2, plus made the following changes:
+The project is forked from vetur, in order to provide a better development experience for vue2, plus made the following changes:
 
 - Remove redundant snippets.
 - Provide this function completions.
 - Support for auto-completion tags.
 - Supports jumping to variable and function definitions.
+- Remove prettier formatter, use VS Code's formatting rules.
 
 ## Project status
 

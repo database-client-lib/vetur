@@ -48,7 +48,6 @@ export function initializeLanguageClient(vlsModulePath: string, globalSnippetDir
         'css',
         'javascript',
         'typescript',
-        'prettier',
         'stylusSupremacy',
         'languageStylus'
       ],

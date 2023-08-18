@@ -7,8 +7,6 @@ import { logger } from '../log';
 import { getPathDepth } from '../utils/paths';
 // dependencies
 import ts from 'typescript';
-import prettier from 'prettier';
-// import prettyHTML from '@starptech/prettyhtml';
 import stylusSupremacy from 'stylus-supremacy';
 
 const readFileAsync = util.promisify(fs.readFile);
@@ -80,8 +78,6 @@ interface Dependency<M> {
 
 export interface RuntimeLibrary {
   typescript: typeof ts;
-  prettier: typeof prettier;
-  // '@starptech/prettyhtml': typeof prettyHTML;
   'stylus-supremacy': typeof stylusSupremacy;
 }
 
@@ -94,8 +90,6 @@ export interface DependencyService {
 
 const bundledModules = {
   typescript: ts,
-  prettier,
-  // '@starptech/prettyhtml': prettyHTML,
   'stylus-supremacy': stylusSupremacy,
 };
 
@@ -207,8 +201,6 @@ export const createDependencyService = async (
   if (!process.versions.pnp) {
     loaded = {
       typescript: await loadTypeScript(),
-      prettier: await loadCommonDep('prettier', bundledModules['prettier']),
-      // '@starptech/prettyhtml': await loadCommonDep('@starptech/prettyhtml', bundledModules['@starptech/prettyhtml']),
       'stylus-supremacy': await loadCommonDep('stylus-supremacy', bundledModules['stylus-supremacy']),
     };
   }

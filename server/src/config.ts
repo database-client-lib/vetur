@@ -88,7 +88,6 @@ export interface VLSFullConfig extends VLSConfig {
   sass?: any;
   javascript?: any;
   typescript?: any;
-  prettier?: any;
   stylusSupremacy?: any;
   languageStylus?: any;
 }

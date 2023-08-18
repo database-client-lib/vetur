@@ -1,5 +1,4 @@
 import { CompletionItem, Diagnostic, Position, Range } from 'vscode-languageserver-types';
-import type { TextDocument } from 'vscode-languageserver-textdocument';
 import {
   getCSSLanguageService,
   getSCSSLanguageService,
@@ -13,12 +12,8 @@ import { StylePriority } from './emmet';
 import { LanguageModelCache, getLanguageModelCache } from '../../embeddedSupport/languageModelCache';
 import { LanguageMode } from '../../embeddedSupport/languageModes';
 import { VueDocumentRegions, LanguageId } from '../../embeddedSupport/embeddedSupport';
-import { getFileFsPath } from '../../utils/paths';
-import { prettierify } from '../../utils/prettier';
 import { NULL_HOVER } from '../nullMode';
-import { VLSFormatConfig } from '../../config';
 import { DependencyService } from '../../services/dependencyService';
-import { BuiltInParserName } from 'prettier';
 import { EnvironmentService } from '../../services/EnvironmentService';
 
 export function getCSSMode(
@@ -172,23 +167,11 @@ function getStyleMode(
       return languageService.getColorPresentations(embedded, stylesheets.refreshAndGet(embedded), color, range);
     },
     format(document, currRange, formattingOptions) {
-      if (env.getConfig().vetur.format.defaultFormatter[languageId] === 'none') {
-        return [];
+      const results = languageService.format(document, currRange, formattingOptions)
+      for (const result of results) {
+        result.newText = `\n${result.newText}\n`
       }
-      syncConfig();
-
-      const { value, range } = getValueAndRange(document, currRange);
-      const needIndent = env.getConfig().vetur.format.styleInitialIndent;
-
-      return prettierify(
-        dependencyService,
-        value,
-        getFileFsPath(document.uri),
-        languageId,
-        range,
-        env.getConfig().vetur.format as VLSFormatConfig,
-        needIndent
-      );
+      return results;
     },
     onDocumentRemoved(document) {
       embeddedDocuments.onDocumentRemoved(document);
@@ -199,18 +182,4 @@ function getStyleMode(
       stylesheets.dispose();
     }
   };
-}
-
-function getValueAndRange(document: TextDocument, currRange: Range): { value: string; range: Range } {
-  let value = document.getText();
-  let range = currRange;
-
-  if (currRange) {
-    const startOffset = document.offsetAt(currRange.start);
-    const endOffset = document.offsetAt(currRange.end);
-    value = value.substring(startOffset, endOffset);
-  } else {
-    range = Range.create(Position.create(0, 0), document.positionAt(value.length));
-  }
-  return { value, range };
 }

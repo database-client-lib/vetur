@@ -157,7 +157,6 @@ export {
 } from './services/typescriptService/util';
 export { getVueSys } from './services/typescriptService/vueSys';
 export { walkExpression } from './services/typescriptService/walkExpression';
-export { prettierify } from './utils/prettier/index';
 export { SassLanguageMode } from './modes/style/sass/sassLanguageMode';
 export { default as builtIn } from './modes/style/stylus/built-in';
 export {
@@ -199,7 +198,6 @@ export { doComplete, normalizeAttributeNameToKebabCase } from './modes/template/
 export { findDefinition } from './modes/template/services/htmlDefinition';
 export { doESLintValidation, createLintEngine } from './modes/template/services/htmlEslintValidation';
 export { getFoldingRanges } from './modes/template/services/htmlFolding';
-export { htmlFormat } from './modes/template/services/htmlFormat';
 export { findDocumentHighlights } from './modes/template/services/htmlHighlighting';
 export { doHover } from './modes/template/services/htmlHover';
 export { findDocumentLinks } from './modes/template/services/htmlLinks';

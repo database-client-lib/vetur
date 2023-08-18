@@ -24,6 +24,7 @@ const onwarn = (warning, warn) => {
 const external = [
   // node built-in
   'path',
+  '@typescript-eslint',
   'fs',
   'child_process',
   'os',

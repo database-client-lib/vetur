@@ -11,7 +11,6 @@ import { doHover } from './services/htmlHover';
 import { findDocumentHighlights } from './services/htmlHighlighting';
 import { findDocumentLinks } from './services/htmlLinks';
 import { findDocumentSymbols } from './services/htmlSymbolsProvider';
-import { htmlFormat } from './services/htmlFormat';
 import { doESLintValidation, createLintEngine } from './services/htmlEslintValidation';
 import { findDefinition } from './services/htmlDefinition';
 import { getTagProviderSettings, CompletionConfiguration, getEnabledTagProviders } from './tagProviders';
@@ -26,12 +25,14 @@ import { isVCancellationRequested, VCancellationToken } from '../../utils/cancel
 import { AutoImportSfcPlugin } from '../plugins/autoImportSfcPlugin';
 import { EnvironmentService } from '../../services/EnvironmentService';
 import { IHTMLTagProvider } from './tagProviders/common';
+import { LanguageService, getLanguageService } from 'vscode-html-languageservice';
 
 export class HTMLMode implements LanguageMode {
   private tagProviderSettings: CompletionConfiguration;
   private enabledTagProviders: IHTMLTagProvider[];
   private embeddedDocuments: LanguageModelCache<TextDocument>;
   private lintEngine: any;
+  private languageService: LanguageService;
 
   constructor(
     documentRegions: LanguageModelCache<VueDocumentRegions>,
@@ -46,6 +47,7 @@ export class HTMLMode implements LanguageMode {
     this.embeddedDocuments = getLanguageModelCache<TextDocument>(10, 60, document =>
       documentRegions.refreshAndGet(document).getSingleLanguageDocument('vue-html')
     );
+    this.languageService = getLanguageService()
     this.lintEngine = createLintEngine(env.getVueVersion());
   }
 
@@ -111,7 +113,19 @@ export class HTMLMode implements LanguageMode {
     return findDocumentSymbols(document, this.vueDocuments.refreshAndGet(document));
   }
   format(document: TextDocument, range: Range, formattingOptions: FormattingOptions) {
-    return htmlFormat(this.dependencyService, document, range, this.env.getConfig().vetur.format as VLSFormatConfig);
+    // return htmlFormat(this.dependencyService, document, range, this.env.getConfig().vetur.format as VLSFormatConfig);
+    const results = this.languageService.format(document, range, formattingOptions)
+    const { insertSpaces, tabSize } = formattingOptions
+    const sep = insertSpaces ? ' '.repeat(tabSize) : '\t';
+    for (const result of results) {
+      let newText = '';
+      for (const c of result.newText) {
+        if (c == '\n') newText += (c + sep);
+        else newText += c;
+      }
+      result.newText = `\n${sep}${newText}\n`
+    }
+    return results;
   }
   findDefinition(document: TextDocument, position: Position) {
     const embedded = this.embeddedDocuments.refreshAndGet(document);
