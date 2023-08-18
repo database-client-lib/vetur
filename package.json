@@ -167,7 +167,7 @@
         "vetur.useWorkspaceDependencies": {
           "type": "boolean",
           "default": false,
-          "description": "Use dependencies from workspace. Support for TypeScript, stylus-supremacy.",
+          "description": "Use dependencies from workspace. Support for TypeScript.",
           "scope": "application"
         },
         "vetur.completion.autoImport": {
@@ -274,19 +274,6 @@
             "sass formatter"
           ],
           "description": "Default formatter for <style lang='sass'> region"
-        },
-        "vetur.format.defaultFormatter.stylus": {
-          "type": "string",
-          "default": "stylus-supremacy",
-          "enum": [
-            "none",
-            "stylus-supremacy"
-          ],
-          "enumDescriptions": [
-            "disable formatting",
-            "stylus formatter from stylus-supremacy"
-          ],
-          "description": "Default formatter for <style lang='stylus'> region"
         },
         "vetur.format.defaultFormatterOptions": {
           "type": "object",

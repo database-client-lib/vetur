@@ -1,7 +1,6 @@
 import _ from 'lodash';
 import * as emmet from '@vscode/emmet-helper';
 import { CompletionList, TextEdit } from 'vscode-languageserver-types';
-import { IStylusSupremacy } from './stylus-supremacy';
 
 import { StylePriority } from '../emmet';
 import { LanguageModelCache, getLanguageModelCache } from '../../../embeddedSupport/languageModelCache';
@@ -32,8 +31,8 @@ export function getStylusMode(
 
   return {
     getId: () => 'stylus',
-    onDocumentRemoved() {},
-    dispose() {},
+    onDocumentRemoved() { },
+    dispose() { },
     doComplete(document, position) {
       const embedded = embeddedDocuments.refreshAndGet(document);
 
@@ -75,71 +74,7 @@ export function getStylusMode(
       return stylusHover(embedded, position);
     },
     format(document, range, formatParams) {
-      if (env.getConfig().vetur.format.defaultFormatter.stylus === 'none') {
-        return [];
-      }
-
-      const stylusSupremacy: IStylusSupremacy = dependencyService.get(
-        'stylus-supremacy',
-        getFileFsPath(document.uri)
-      ).module;
-
-      const inputText = document.getText(range);
-
-      const vlsFormatConfig = env.getConfig().vetur.format as VLSFormatConfig;
-      const tabStopChar = vlsFormatConfig.options.useTabs ? '\t' : ' '.repeat(vlsFormatConfig.options.tabSize);
-
-      // Note that this would have been `document.eol` ideally
-      const newLineChar = inputText.includes('\r\n') ? '\r\n' : '\n';
-
-      // Determine the base indentation for the multi-line Stylus content
-      let baseIndent = '';
-      if (range.start.line !== range.end.line) {
-        const styleTagLine = document.getText().split(/\r?\n/)[range.start.line];
-        if (styleTagLine) {
-          baseIndent = _.get(styleTagLine.match(/^(\t|\s)+/), '0', '');
-        }
-      }
-
-      // Add one more indentation when `vetur.format.styleInitialIndent` is set to `true`
-      if (env.getConfig().vetur.format.scriptInitialIndent) {
-        baseIndent += tabStopChar;
-      }
-
-      // Build the formatting options for Stylus Supremacy
-      // See https://thisismanta.github.io/stylus-supremacy/#options
-      const stylusSupremacyFormattingOptions = stylusSupremacy.createFormattingOptions(
-        env.getConfig().stylusSupremacy || {}
-      );
-
-      // read .stylintrc file if it exists and give it priority over VS Code settings
-      const stylintrcPath = path.join(env.getProjectRoot(), '.stylintrc');
-      let stylusStylintOptions = {};
-      if (fs.existsSync(stylintrcPath)) {
-        try {
-          const stylintOptions = JSON.parse(fs.readFileSync(stylintrcPath, 'utf-8'));
-          stylusStylintOptions = stylusSupremacy.createFormattingOptionsFromStylint(stylintOptions);
-        } catch (err) {
-          console.error(err);
-        }
-      }
-
-      const formattingOptions = {
-        ...stylusSupremacyFormattingOptions,
-        ...stylusStylintOptions,
-        tabStopChar,
-        newLineChar: '\n'
-      };
-
-      const formattedText = stylusSupremacy.format(inputText, formattingOptions);
-
-      // Add the base indentation and correct the new line characters
-      const outputText = formattedText
-        .split(/\n/)
-        .map(line => (line.length > 0 ? baseIndent + line : ''))
-        .join(newLineChar);
-
-      return [TextEdit.replace(range, outputText)];
+      return []
     }
   };
 }

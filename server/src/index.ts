@@ -188,7 +188,6 @@ export {
   findNodeAtPosition
 } from './modes/style/stylus/parser';
 export { stylusHover } from './modes/style/stylus/stylus-hover';
-export type { IStylusSupremacy } from './modes/style/stylus/stylus-supremacy';
 export { provideDocumentSymbols } from './modes/style/stylus/symbols-finder';
 export type { HTMLDocument } from './modes/template/parser/htmlParser';
 export { parse, parseHTMLDocument, Node } from './modes/template/parser/htmlParser';

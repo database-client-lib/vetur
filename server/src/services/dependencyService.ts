@@ -7,7 +7,6 @@ import { logger } from '../log';
 import { getPathDepth } from '../utils/paths';
 // dependencies
 import ts from 'typescript';
-import stylusSupremacy from 'stylus-supremacy';
 
 const readFileAsync = util.promisify(fs.readFile);
 const accessFileAsync = util.promisify(fs.access);
@@ -78,7 +77,6 @@ interface Dependency<M> {
 
 export interface RuntimeLibrary {
   typescript: typeof ts;
-  'stylus-supremacy': typeof stylusSupremacy;
 }
 
 export interface DependencyService {
@@ -90,7 +88,6 @@ export interface DependencyService {
 
 const bundledModules = {
   typescript: ts,
-  'stylus-supremacy': stylusSupremacy,
 };
 
 export const createDependencyService = async (
@@ -201,7 +198,6 @@ export const createDependencyService = async (
   if (!process.versions.pnp) {
     loaded = {
       typescript: await loadTypeScript(),
-      'stylus-supremacy': await loadCommonDep('stylus-supremacy', bundledModules['stylus-supremacy']),
     };
   }
 
