@@ -1,13 +1,21 @@
 <p>
-  <h1 align="center">Vetur</h1>
+  <h1 align="center">Vetur Plus</h1>
 </p>
 
+The project is forked from vetur, all in order to provide a better development experience for vue2, plus made the following changes:
+
+- Remove redundant snippets.
+- Provide this function completions.
+- Support for auto-completion tags.
+- Supports jumping to variable and function definitions.
+
 ## Project status
+
 issue: https://github.com/vuejs/vetur/issues/3476
 
-New official vue editor support: Volar   
-VSCode extension: https://marketplace.visualstudio.com/items?itemName=Vue.volar   
-Project: https://github.com/johnsoncodehk/volar   
+New official vue editor support: Volar
+VSCode extension: https://marketplace.visualstudio.com/items?itemName=Vue.volar
+Project: https://github.com/johnsoncodehk/volar
 LSP: https://github.com/johnsoncodehk/volar
 
 <p align="center">
@@ -47,13 +55,13 @@ Thanks to the following companies for supporting Vetur's development:
 <table width="100%">
   <tr>
     <td>
-      <a href="https://sponsorlink.codestream.com/?utm_source=vscmarket&amp;utm_campaign=vetur&amp;utm_medium=banner">
+      <a href="https://sponsorlink.codestream.com/?utm_source=vscmarket&utm_campaign=vetur&utm_medium=banner">
         <img src="https://alt-images.codestream.com/codestream_logo_vetur.png" width="250"/>
       </a>
     </td>
     <td>
       Request and perform code reviews from inside your IDE.  Review any code, even if it's a work-in-progress that hasn't been committed yet, and use jump-to-definition, your favorite keybindings, and other IDE tools.
-      <a title="Try CodeStream" href="https://sponsorlink.codestream.com/?utm_source=vscmarket&amp;utm_campaign=vetur&amp;utm_medium=banner">Try it free</a>.
+      <a title="Try CodeStream" href="https://sponsorlink.codestream.com/?utm_source=vscmarket&utm_campaign=vetur&utm_medium=banner">Try it free</a>.
     </td>
   </tr>
   <tr>
@@ -130,4 +138,4 @@ See [CONTRIBUTING.md](https://github.com/vuejs/vetur/blob/master/.github/CONTRIB
 
 ## License
 
-MIT © [Pine Wu](https://github.com/octref) 
+MIT © [Pine Wu](https://github.com/octref)
