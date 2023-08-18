@@ -344,7 +344,6 @@ export function getServiceHost(
             return {
               resolvedFileName: bridge.fileName,
               extension: tsModule.Extension.Ts,
-              /* tslint:disable:max-line-length */
               // https://github.com/microsoft/TypeScript/blob/bcbe1d763823eacd4b252c904e77761a6b8636a1/src/compiler/types.ts#L6216
               isExternalLibraryImport: true
             };
@@ -581,7 +580,6 @@ function getParsedConfig(
         extension: 'vue',
         isMixedContent: true,
         // Note: in order for parsed config to include *.vue files, scriptKind must be set to Deferred.
-        // tslint:disable-next-line max-line-length
         // See: https://github.com/microsoft/TypeScript/blob/2106b07f22d6d8f2affe34b9869767fa5bc7a4d9/src/compiler/utilities.ts#L6356
         scriptKind: tsModule.ScriptKind.Deferred
       }

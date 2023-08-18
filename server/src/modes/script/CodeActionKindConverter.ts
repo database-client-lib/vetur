@@ -9,7 +9,6 @@ export interface TSCodeActionKind {
   matches(refactor: { actionName: string }): boolean;
 }
 
-/* tslint:disable:variable-name */
 const Extract_Function = Object.freeze<TSCodeActionKind>({
   kind: CodeActionKind.RefactorExtract + '.function',
   matches: refactor => refactor.actionName.startsWith('function_')
@@ -63,8 +62,6 @@ const Rewrite_Property_GenerateAccessors = Object.freeze<TSCodeActionKind>({
   kind: CodeActionKind.RefactorRewrite + '.property' + '.generateAccessors',
   matches: refactor => refactor.actionName.startsWith("Generate 'get' and 'set' accessors")
 });
-/* tslint:enable:variable-name */
-
 const allKnownCodeActionKinds = [
   Extract_Function,
   Extract_Constant,

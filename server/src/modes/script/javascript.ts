@@ -1151,7 +1151,6 @@ function convertTSDiagnosticCategoryToDiagnosticSeverity(
   }
 }
 
-/* tslint:disable:max-line-length */
 /**
  * Adapted from https://github.com/microsoft/vscode/blob/2b090abd0fdab7b21a3eb74be13993ad61897f84/extensions/typescript-language-features/src/languageFeatures/completions.ts#L147-L181
  */

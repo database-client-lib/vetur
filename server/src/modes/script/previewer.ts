@@ -3,7 +3,6 @@
  *  Licensed under the MIT License. See License.txt in the project root for license information.
  *--------------------------------------------------------------------------------------------*/
 
-/* tslint:disable:max-line-length */
 /**
  * Adapted from https://github.com/microsoft/vscode/blob/8ba70d8bdc3a10e3143cc4a131f333263bc48eef/extensions/typescript-language-features/src/utils/previewer.ts
  */

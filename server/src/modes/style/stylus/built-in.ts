@@ -1,4 +1,3 @@
-/* tslint:disable:max-line-length */
 import { CompletionItem, CompletionItemKind } from 'vscode-languageserver-types';
 
 const _builtIn = [

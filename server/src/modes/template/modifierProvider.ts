@@ -1,4 +1,3 @@
-// tslint:disable: max-line-length
 import { MarkupContent } from 'vscode-languageserver-types';
 
 export interface Modifier {

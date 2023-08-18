@@ -21,7 +21,6 @@ server/node_modules/typescript/lib/typescriptServices.js
 **/*.map
 **/tsconfig.json
 **/tsconfig.**.json
-**/tslint.json
 **/yarn.lock
 
 .vsix

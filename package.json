@@ -28,19 +28,6 @@
     "prepare-publish": "./build/release-cleanup.sh",
     "prepare": "husky install"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "*.ts": [
-      "tslint --fix"
-    ],
-    "*.{js,ts,yaml}": [
-      "prettier --write"
-    ]
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/database-client-lib/vetur"
@@ -564,7 +551,6 @@
     "rollup-plugin-typescript2": "^0.34.1",
     "shelljs": "^0.8.5",
     "ts-node": "^10.4.0",
-    "tslint": "^6.1.3",
     "typescript": "^4.9.5",
     "vscode-languageclient": "^7.0.0",
     "vscode-languageserver-types": "^3.16.0"

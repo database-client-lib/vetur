@@ -1,4 +1,3 @@
-// tslint:disable
 /* auto generator by `generate-index ./src/` */
 export type {
   VLSFormatConfig,
