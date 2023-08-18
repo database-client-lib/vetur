@@ -10,7 +10,6 @@ describe('Should autocomplete scaffold snippets', () => {
     await testCompletion(vueDocUri, position(0, 1), [
       '<vue> with default.vue ✌',
       '<template> html.vue ✌',
-      '<template> pug.vue ✌',
       '<style> css-scoped.vue ✌',
       '<style> css.vue ✌',
       '<style> less-scoped.vue ✌',

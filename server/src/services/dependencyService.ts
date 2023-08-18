@@ -10,7 +10,6 @@ import ts from 'typescript';
 import prettier from 'prettier';
 // import prettyHTML from '@starptech/prettyhtml';
 import stylusSupremacy from 'stylus-supremacy';
-import * as prettierPluginPug from '@prettier/plugin-pug';
 
 const readFileAsync = util.promisify(fs.readFile);
 const accessFileAsync = util.promisify(fs.access);
@@ -84,7 +83,6 @@ export interface RuntimeLibrary {
   prettier: typeof prettier;
   // '@starptech/prettyhtml': typeof prettyHTML;
   'stylus-supremacy': typeof stylusSupremacy;
-  '@prettier/plugin-pug': typeof prettierPluginPug;
 }
 
 export interface DependencyService {
@@ -99,7 +97,6 @@ const bundledModules = {
   prettier,
   // '@starptech/prettyhtml': prettyHTML,
   'stylus-supremacy': stylusSupremacy,
-  '@prettier/plugin-pug': prettierPluginPug
 };
 
 export const createDependencyService = async (
@@ -213,7 +210,6 @@ export const createDependencyService = async (
       prettier: await loadCommonDep('prettier', bundledModules['prettier']),
       // '@starptech/prettyhtml': await loadCommonDep('@starptech/prettyhtml', bundledModules['@starptech/prettyhtml']),
       'stylus-supremacy': await loadCommonDep('stylus-supremacy', bundledModules['stylus-supremacy']),
-      '@prettier/plugin-pug': await loadCommonDep('@prettier/plugin-pug', bundledModules['@prettier/plugin-pug'])
     };
   }
 
@@ -224,7 +220,7 @@ export const createDependencyService = async (
         return getBundled(lib);
       }
       if (useWorkspaceDependencies && tsSDKPath && lib === 'typescript') {
-        return loadTsSDKPath();
+        return loadTsSDKPath() as any;
       }
       const pkgPath = require.resolve(lib, { paths: [filePath ?? workspacePath] });
 

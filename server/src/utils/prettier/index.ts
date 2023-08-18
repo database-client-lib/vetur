@@ -39,37 +39,6 @@ export function prettierify(
   }
 }
 
-export function prettierPluginPugify(
-  dependencyService: DependencyService,
-  code: string,
-  fileFsPath: string,
-  languageId: string,
-  range: Range,
-  vlsFormatConfig: VLSFormatConfig,
-  initialIndent: boolean
-): TextEdit[] {
-  try {
-    let prettier = dependencyService.get('prettier', fileFsPath).module;
-    if (prettier.version.startsWith('1')) {
-      prettier = dependencyService.getBundled('prettier').module;
-    }
-    const prettierPluginPug = dependencyService.get('@prettier/plugin-pug', fileFsPath).module;
-    const prettierOptions = getPrettierOptions(dependencyService, prettier, fileFsPath, languageId, vlsFormatConfig);
-    (prettierOptions as { pluginSearchDirs: string[] }).pluginSearchDirs = [];
-    prettierOptions.plugins = Array.isArray(prettierOptions.plugins)
-      ? [...prettierOptions.plugins, prettierPluginPug]
-      : [prettierPluginPug];
-    logger.logDebug(`Using prettier. Options\n${JSON.stringify(prettierOptions)}`);
-
-    const prettierifiedCode = prettier.format(code, prettierOptions);
-    return [toReplaceTextedit(prettierifiedCode, range, vlsFormatConfig, initialIndent)];
-  } catch (e) {
-    console.log('Prettier format failed');
-    console.error((e as Error).stack);
-    return [];
-  }
-}
-
 function getPrettierOptions(
   dependencyService: DependencyService,
   prettierModule: RuntimeLibrary['prettier'],
@@ -83,7 +52,6 @@ function getPrettierOptions(
     const table = {
       javascript: 'babel',
       typescript: 'typescript',
-      pug: 'pug',
       vue: 'vue',
       css: 'css',
       postcss: 'css',

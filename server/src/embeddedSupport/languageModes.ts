@@ -37,7 +37,6 @@ import { DependencyService } from '../services/dependencyService';
 import { nullMode } from '../modes/nullMode';
 import { getServiceHost, IServiceHost } from '../services/typescriptService/serviceHost';
 import { SassLanguageMode } from '../modes/style/sass/sassLanguageMode';
-import { getPugMode } from '../modes/pug';
 import { VCancellationToken } from '../utils/cancellationToken';
 import { createAutoImportSfcPlugin } from '../modes/plugins/autoImportSfcPlugin';
 import { EnvironmentService } from '../services/EnvironmentService';
@@ -90,7 +89,6 @@ export interface LanguageModeRange extends LanguageRange {
 export class LanguageModes {
   private modes: { [k in LanguageId]: LanguageMode } = {
     vue: nullMode,
-    pug: nullMode,
     'vue-html': nullMode,
     css: nullMode,
     postcss: nullMode,
@@ -159,7 +157,6 @@ export class LanguageModes {
 
     this.modes['vue'] = getVueMode(env, globalSnippetDir);
     this.modes['vue-html'] = vueHtmlMode;
-    this.modes['pug'] = getPugMode(env, services.dependencyService, this.documentRegions, services.infoService);
     this.modes['css'] = getCSSMode(env, this.documentRegions, services.dependencyService);
     this.modes['postcss'] = getPostCSSMode(env, this.documentRegions, services.dependencyService);
     this.modes['scss'] = getSCSSMode(env, this.documentRegions, services.dependencyService);

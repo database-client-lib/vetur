@@ -6,7 +6,6 @@ import { readFileSync } from 'fs';
 // Available grammar scopes
 const SCOPES: { [lang: string]: string } = {
   html: 'text.html.basic',
-  pug: 'text.pug',
   haml: 'text.haml',
   slim: 'text.slim',
   css: 'source.css',

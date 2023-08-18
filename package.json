@@ -151,7 +151,6 @@
           "text.html.basic": "html",
           "text.html.vue-html": "vue-html",
           "text.jade.slm": "slm",
-          "text.pug": "jade",
           "text.haml": "haml",
           "text.slim": "slim",
           "text.html.liquid": "liquid",
@@ -191,20 +190,6 @@
         }
       },
       {
-        "path": "./syntaxes/pug/directives.tmLanguage.json",
-        "scopeName": "vue.pug.directives",
-        "injectTo": [
-          "source.vue"
-        ]
-      },
-      {
-        "path": "./syntaxes/pug/interpolations.tmLanguage.json",
-        "scopeName": "vue.pug.interpolations",
-        "injectTo": [
-          "source.vue"
-        ]
-      },
-      {
         "scopeName": "markdown.vue.codeblock",
         "path": "./syntaxes/markdown-vue.json",
         "injectTo": [
@@ -227,7 +212,7 @@
         "vetur.useWorkspaceDependencies": {
           "type": "boolean",
           "default": false,
-          "description": "Use dependencies from workspace. Support for TypeScript, Prettier, @starptech/prettyhtml, stylus-supremacy, @prettier/plugin-pug.",
+          "description": "Use dependencies from workspace. Support for TypeScript, Prettier, @starptech/prettyhtml, stylus-supremacy.",
           "scope": "application"
         },
         "vetur.completion.autoImport": {
@@ -339,19 +324,6 @@
           ],
           "description": "Default formatter for <template> region"
         },
-        "vetur.format.defaultFormatter.pug": {
-          "type": "string",
-          "default": "prettier",
-          "enum": [
-            "none",
-            "prettier"
-          ],
-          "enumDescriptions": [
-            "disable formatting",
-            "prettier"
-          ],
-          "description": "Default formatter for <template lang='pug'> region"
-        },
         "vetur.format.defaultFormatter.css": {
           "type": "string",
           "default": "prettier",
@@ -429,36 +401,6 @@
             "stylus formatter from stylus-supremacy"
           ],
           "description": "Default formatter for <style lang='stylus'> region"
-        },
-        "vetur.format.defaultFormatter.js": {
-          "type": "string",
-          "default": "prettier",
-          "enum": [
-            "none",
-            "prettier",
-            "vscode-typescript"
-          ],
-          "enumDescriptions": [
-            "disable formatting",
-            "js formatter from prettier",
-            "js formatter from TypeScript"
-          ],
-          "description": "Default formatter for <script> region"
-        },
-        "vetur.format.defaultFormatter.ts": {
-          "type": "string",
-          "default": "prettier",
-          "enum": [
-            "none",
-            "prettier",
-            "vscode-typescript"
-          ],
-          "enumDescriptions": [
-            "disable formatting",
-            "ts formatter using typescript parser from prettier",
-            "ts formatter from TypeScript"
-          ],
-          "description": "Default formatter for <script> region"
         },
         "vetur.format.defaultFormatterOptions": {
           "type": "object",

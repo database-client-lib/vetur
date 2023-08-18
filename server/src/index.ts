@@ -81,8 +81,6 @@ export { getVueVersionKey, inferVueVersion, VueVersion } from './utils/vueVersio
 export { findConfigFile, requireUncached } from './utils/workspace';
 export type { AutoImportSfcPlugin } from './modes/plugins/autoImportSfcPlugin';
 export { createAutoImportSfcPlugin } from './modes/plugins/autoImportSfcPlugin';
-export { getPugMode } from './modes/pug/index';
-export { findTokenAtPosition, locToRange } from './modes/pug/languageService';
 export type { TSCodeActionKind } from './modes/script/CodeActionKindConverter';
 export { getCodeActionKind } from './modes/script/CodeActionKindConverter';
 export type { InternalChildComponent } from './modes/script/childComponents';
@@ -160,7 +158,7 @@ export {
 } from './services/typescriptService/util';
 export { getVueSys } from './services/typescriptService/vueSys';
 export { walkExpression } from './services/typescriptService/walkExpression';
-export { prettierify, prettierPluginPugify } from './utils/prettier/index';
+export { prettierify } from './utils/prettier/index';
 export { SassLanguageMode } from './modes/style/sass/sassLanguageMode';
 export { default as builtIn } from './modes/style/stylus/built-in';
 export {

@@ -286,9 +286,6 @@ function scanCustomRegion(tagName: string, scanner: Scanner, text: string): Embe
 }
 
 function getLanguageIdFromLangAttr(languageIdFromType: string): LanguageId {
-  if (languageIdFromType === 'jade') {
-    languageIdFromType = 'pug';
-  }
   if (languageIdFromType === 'ts') {
     languageIdFromType = 'typescript';
   }

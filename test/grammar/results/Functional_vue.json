@@ -242,17 +242,6 @@
 		}
 	},
 	{
-		"c": "normal-pug",
-		"t": "source.vue text.html.vue-html meta.tag.block.any.html string.quoted.double.html",
-		"r": {
-			"dark_plus": "string: #CE9178",
-			"light_plus": "string.quoted.double.html: #0000FF",
-			"dark_vs": "string: #CE9178",
-			"light_vs": "string.quoted.double.html: #0000FF",
-			"hc_black": "string: #CE9178"
-		}
-	},
-	{
 		"c": "\"",
 		"t": "source.vue text.html.vue-html meta.tag.block.any.html string.quoted.double.html punctuation.definition.string.end.html",
 		"r": {
@@ -453,17 +442,6 @@
 	{
 		"c": "\"",
 		"t": "source.vue text.html.vue-html meta.tag.block.any.html string.quoted.double.html punctuation.definition.string.begin.html",
-		"r": {
-			"dark_plus": "string: #CE9178",
-			"light_plus": "string.quoted.double.html: #0000FF",
-			"dark_vs": "string: #CE9178",
-			"light_vs": "string.quoted.double.html: #0000FF",
-			"hc_black": "string: #CE9178"
-		}
-	},
-	{
-		"c": "normal-pug-multi",
-		"t": "source.vue text.html.vue-html meta.tag.block.any.html string.quoted.double.html",
 		"r": {
 			"dark_plus": "string: #CE9178",
 			"light_plus": "string.quoted.double.html: #0000FF",

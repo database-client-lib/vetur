@@ -135,8 +135,6 @@ suite('Embedded Support', () => {
 
   testcase('empty block').style(` `).run();
 
-  testcase('lang').template(`.test`, 'pug').style('. test { color: red}', 'sass').run();
-
   testcase('lang attribute').template(`<editor lang="javascript"></editor>`).run();
 
   testcase('ill formed template').template(`<div><template><span</template></div>`).run();
@@ -158,6 +156,4 @@ suite('Embedded Support', () => {
   testcase('ill formed template9').script('').style('').template(`<div></d`).run();
 
   testcase('ill formed template10').template(`<div><template>`).run();
-
-  testcase('ill formed template11').template(`div(v-bind:prop="x <= 1")`, 'pug').run();
 });

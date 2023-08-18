@@ -32,14 +32,13 @@ import {
 import { TextDocument } from 'vscode-languageserver-textdocument';
 import { LanguageMode } from '../../embeddedSupport/languageModes';
 import { VueDocumentRegions, LanguageRange, LanguageId } from '../../embeddedSupport/embeddedSupport';
-import { prettierify } from '../../utils/prettier';
 import { getFileFsPath, getFilePath } from '../../utils/paths';
 
 import { URI } from 'vscode-uri';
 import type ts from 'typescript';
 import _ from 'lodash';
 
-import { nullMode, NULL_SIGNATURE } from '../nullMode';
+import { NULL_SIGNATURE } from '../nullMode';
 import { BasicComponentInfo, VLSFormatConfig } from '../../config';
 import { VueInfoService } from '../../services/vueInfoService';
 import { getComponentInfo } from './componentInfo';
@@ -715,66 +714,40 @@ export async function getJavascriptMode(
     },
     format(doc: TextDocument, range: Range, formatParams: FormattingOptions): TextEdit[] {
       const { scriptDoc, service } = updateCurrentVueTextDocument(doc);
-
-      const defaultFormatter =
-        scriptDoc.languageId === 'javascript'
-          ? env.getConfig().vetur.format.defaultFormatter.js
-          : env.getConfig().vetur.format.defaultFormatter.ts;
-
-      if (defaultFormatter === 'none') {
-        return [];
-      }
-
-      const parser = scriptDoc.languageId === 'javascript' ? 'babel' : 'typescript';
       const needInitialIndent = env.getConfig().vetur.format.scriptInitialIndent;
       const vlsFormatConfig: VLSFormatConfig = env.getConfig().vetur.format;
 
-      if (
-        defaultFormatter === 'prettier') {
-        const code = doc.getText(range);
-        const filePath = getFileFsPath(scriptDoc.uri);
-        let doFormat = prettierify;
-        return doFormat(
-          dependencyService,
-          code,
-          filePath,
-          scriptDoc.languageId,
-          range,
-          vlsFormatConfig,
-          needInitialIndent
-        );
-      } else {
-        const initialIndentLevel = needInitialIndent ? 1 : 0;
-        const formatSettings: ts.FormatCodeSettings =
-          scriptDoc.languageId === 'javascript' ? env.getConfig().javascript.format : env.getConfig().typescript.format;
-        const convertedFormatSettings = convertOptions(
-          formatSettings,
-          {
-            tabSize: vlsFormatConfig.options.tabSize,
-            insertSpaces: !vlsFormatConfig.options.useTabs
-          },
-          initialIndentLevel
-        );
+      const initialIndentLevel = needInitialIndent ? 1 : 0;
+      const formatSettings: ts.FormatCodeSettings =
+        scriptDoc.languageId === 'javascript' ? env.getConfig().javascript.format : env.getConfig().typescript.format;
+      const convertedFormatSettings = convertOptions(
+        formatSettings,
+        {
+          tabSize: vlsFormatConfig.options.tabSize,
+          insertSpaces: !vlsFormatConfig.options.useTabs
+        },
+        initialIndentLevel
+      );
 
-        const fileFsPath = getFileFsPath(doc.uri);
-        const start = scriptDoc.offsetAt(range.start);
-        const end = scriptDoc.offsetAt(range.end);
-        const edits = service.getFormattingEditsForRange(fileFsPath, start, end, convertedFormatSettings);
+      const fileFsPath = getFileFsPath(doc.uri);
+      const start = scriptDoc.offsetAt(range.start);
+      const end = scriptDoc.offsetAt(range.end);
+      const edits = service.getFormattingEditsForRange(fileFsPath, start, end, convertedFormatSettings);
 
-        if (!edits) {
-          return [];
-        }
-        const result = [];
-        for (const edit of edits) {
-          if (edit.span.start >= start && edit.span.start + edit.span.length <= end) {
-            result.push({
-              range: convertRange(scriptDoc, edit.span),
-              newText: edit.newText
-            });
-          }
-        }
-        return result;
+      if (!edits) {
+        return [];
       }
+      const result = [];
+      for (const edit of edits) {
+        if (edit.span.start >= start && edit.span.start + edit.span.length <= end) {
+          result.push({
+            range: convertRange(scriptDoc, edit.span),
+            newText: edit.newText
+          });
+        }
+      }
+      return result;
+
     },
     onDocumentRemoved(document: TextDocument) {
       jsDocuments.onDocumentRemoved(document);

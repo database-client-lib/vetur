@@ -5,7 +5,6 @@ import { parseVueDocumentRegions, EmbeddedRegion, RegionAttrs } from './vueDocum
 export type LanguageId =
   | 'vue'
   | 'vue-html'
-  | 'pug'
   | 'css'
   | 'postcss'
   | 'scss'
