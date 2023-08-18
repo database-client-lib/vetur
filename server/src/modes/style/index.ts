@@ -7,7 +7,7 @@ import {
   LanguageService
 } from 'vscode-css-languageservice';
 import _ from 'lodash';
-import * as emmet from 'vscode-emmet-helper';
+import * as emmet from '@vscode/emmet-helper';
 
 import { StylePriority } from './emmet';
 import { LanguageModelCache, getLanguageModelCache } from '../../embeddedSupport/languageModelCache';

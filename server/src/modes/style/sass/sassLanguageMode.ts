@@ -7,7 +7,7 @@ import { TextEdit, Position } from 'vscode-css-languageservice';
 
 import { SassFormatter, SassFormatterConfig } from 'sass-formatter';
 
-import * as emmet from 'vscode-emmet-helper';
+import * as emmet from '@vscode/emmet-helper';
 import { StylePriority } from '../emmet';
 import { EnvironmentService } from '../../../services/EnvironmentService';
 
