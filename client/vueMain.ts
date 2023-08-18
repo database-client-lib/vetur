@@ -12,8 +12,10 @@ import {
 import { getGlobalSnippetDir } from './userSnippetDir';
 import { generateOpenUserScaffoldSnippetFolderCommand } from './commands/openUserScaffoldSnippetFolderCommand';
 import { generateDoctorCommand } from './commands/doctorCommand';
+import { bindAutoCloseTag } from './autoCloseTag';
 
 export async function activate(context: vscode.ExtensionContext) {
+  bindAutoCloseTag(context)
   const isInsiders = vscode.env.appName.includes('Insiders');
   const globalSnippetDir = getGlobalSnippetDir(isInsiders);
 
