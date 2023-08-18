@@ -4,7 +4,7 @@ import { basename } from 'path';
 import type ts from 'typescript';
 import { CompletionItem } from 'vscode-languageserver';
 import { TextDocument } from 'vscode-languageserver-textdocument';
-import { TextEdit } from 'vscode-languageserver-types';
+import { InsertTextFormat, TextEdit } from 'vscode-languageserver-types';
 import { VLSFullConfig } from '../../config';
 import { modulePathToValidIdentifier, toMarkupContent } from '../../utils/strings';
 import { RuntimeLibrary } from '../../services/dependencyService';
@@ -122,9 +122,6 @@ export function createAutoImportSfcPlugin(
         .filter(fileName => !childComponentsPath.includes(fileName))
         .map(fileName => {
           let tagName = basename(fileName, '.vue');
-          if (config.vetur.completion.tagCasing === 'kebab') {
-            tagName = kebabCase(tagName);
-          }
           const documentation = `
 \`\`\`typescript
 import ${upperFirst(camelCase(tagName))} from '${fileName}'
@@ -133,7 +130,8 @@ import ${upperFirst(camelCase(tagName))} from '${fileName}'
 
           return {
             label: tagName,
-            insertText: tagName,
+            insertText: `${tagName}>$1</${tagName}>`,
+            insertTextFormat: InsertTextFormat.Snippet,
             documentation: toMarkupContent(documentation),
             data: {
               languageId: 'vue-html',

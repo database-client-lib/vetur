@@ -70,9 +70,9 @@ export function doComplete(
       result.items.push({
         ...item,
         kind: CompletionItemKind.Property,
-        textEdit: TextEdit.replace(range, item.label),
+        textEdit: TextEdit.replace(range, item.insertText || item.label),
         sortText: TagProviderPriority.UserCode + item.label,
-        insertTextFormat: InsertTextFormat.PlainText
+        insertTextFormat: item.insertTextFormat || InsertTextFormat.PlainText
       });
     });
     return result;
