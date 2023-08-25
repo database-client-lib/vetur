@@ -7,7 +7,7 @@ The project is forked from vetur, in order to provide a better development exper
 - Remove redundant snippets.
 - Provide this function completions.
 - Support for auto-completion tags.
-- Supports jumping to variable and function definitions.
+- Supports go to variable and function definitions.
 - Remove prettier formatter, use VS Code's formatting rules.
 
 ## Project status

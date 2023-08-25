@@ -113,7 +113,9 @@ export class HTMLMode implements LanguageMode {
     return findDocumentSymbols(document, this.vueDocuments.refreshAndGet(document));
   }
   format(document: TextDocument, range: Range, formattingOptions: FormattingOptions) {
-    // return htmlFormat(this.dependencyService, document, range, this.env.getConfig().vetur.format as VLSFormatConfig);
+    if ((this.env.getConfig().vetur.format as VLSFormatConfig).defaultFormatter.html === 'none') {
+      return [];
+    }
     const results = this.languageService.format(document, range, formattingOptions)
     const { insertSpaces, tabSize } = formattingOptions
     const sep = insertSpaces ? ' '.repeat(tabSize) : '\t';

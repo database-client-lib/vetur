@@ -262,6 +262,17 @@
           "default": false,
           "description": "Use tabs for indentation. Inherited by all formatters."
         },
+        "vetur.format.defaultFormatter.html": {
+          "type": "string",
+          "default": "prettier",
+          "enum": [
+            "none"
+          ],
+          "enumDescriptions": [
+            "disable formatting"
+          ],
+          "description": "Default formatter for <template> region"
+        },
         "vetur.format.defaultFormatter.sass": {
           "type": "string",
           "default": "sass-formatter",
