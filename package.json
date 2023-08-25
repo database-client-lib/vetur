@@ -3,7 +3,7 @@
   "displayName": "Vetur Plus",
   "description": "Vue tooling for VS Code",
   "icon": "asset/vue.png",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "publisher": "cweijan",
   "scripts": {
     "watch": "rollup -c rollup.config.js -w",
